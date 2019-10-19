@@ -67,10 +67,10 @@ echo "Replace PNG to X in .X file? (Y/n)"
 read ans
 case $ans in
     "y") echo "Replace."
-        find ./ -type f -exec sed -i 's/.png/.dds/g' -- {} \;
+        find ./ -type f -exec sed -i 's/.png/.dds/ig' -- {} \;
         ;;
     "Y") echo "Replace."
-        find ./ -type f -exec sed -i 's/.png/.dds/g' -- {} \;
+        find ./ -type f -exec sed -i 's/.png/.dds/ig' -- {} \;
         ;;
     *) echo "" ;;
 esac
