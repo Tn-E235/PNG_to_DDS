@@ -4,12 +4,12 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-cd $1
+cd -- "$1"
 if [ $? -gt 0 ]; then
     echo "[ERROR]Illegal path"
     exit 1
 fi
-find ./ -iname *.png > list.txt
+find ./ -iname '*.png' > list.txt
 pwd
 
 echo "Convert PNG to DDS? (Y/n)"
@@ -42,22 +42,24 @@ case $ans in
 esac
 
 File=list.txt
+IFS='
+'
 for i in $(cat $File)
 do
     echo "---------------------"
     echo "Target File: ${i}"
     filename=${i%.png}
     echo "${filename}";
-    convert "${filename}.png" -define dds:compression='$Comp',dds:cluster-fit=true,dds:weight-by-alpha=true,dds:fast-mipmaps=true "${filename}.dds"
+    convert "${filename}.png" -define dds:compression="$Comp",dds:cluster-fit=true,dds:weight-by-alpha=true,dds:fast-mipmaps=true "${filename}.dds"
 done
 
 echo "Remove PNG images? (Y/n)"
 read ans
 case $ans in
     "y") echo "Remove."
-        find ./ -iname *.png | xargs rm ;;
+        find ./ -iname '*.png' -exec rm -- {} + ;;
     "Y") echo "Remove."
-        find ./ -iname *.png | xargs rm ;;
+        find ./ -iname '*.png' -exec rm -- {} + ;;
     *) echo "" ;;
 esac
 
@@ -65,10 +67,10 @@ echo "Replace PNG to X in .X file? (Y/n)"
 read ans
 case $ans in
     "y") echo "Replace."
-        find ./ -type f | xargs sed -i 's/.png/.dds/g'
+        find ./ -type f -exec sed -i 's/.png/.dds/g' -- {} \;
         ;;
     "Y") echo "Replace."
-        find ./ -type f | xargs sed -i 's/.png/.dds/g'
+        find ./ -type f -exec sed -i 's/.png/.dds/g' -- {} \;
         ;;
     *) echo "" ;;
 esac
