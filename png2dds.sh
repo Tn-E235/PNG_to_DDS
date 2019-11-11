@@ -48,9 +48,9 @@ for i in $(cat $File)
 do
     echo "---------------------"
     echo "Target File: ${i}"
-    filename=${i%.png}
+    filename=${i%.*}
     echo "${filename}";
-    convert "${filename}.png" -define dds:compression="$Comp",dds:cluster-fit=true,dds:weight-by-alpha=true,dds:fast-mipmaps=true "${filename}.dds"
+    convert "${i}" -define dds:compression="$Comp",dds:cluster-fit=true,dds:weight-by-alpha=true,dds:fast-mipmaps=true "${filename}.dds"
 done
 
 echo "Remove PNG images? (Y/n)"
