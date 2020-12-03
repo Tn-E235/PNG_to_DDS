@@ -1,8 +1,30 @@
 # PNGファイルをDDSに変換するスクリプト(BveTs向け)
-#### これはLinuxコマンドが使える環境向けです．標準のwindowsでは動作させることができません．WSLを使うなどしてください．WSL使うぐらいならWindowsで動くやつ使うだろうけどね．
-事前準備
-- imagemagickをbrew等でインストールしてください
-## 使い方
+テクスチャのpngファイルをdds形式に変換して、ロード時間とメモリ削減をしよう！
+windowsにも対応しました！
+## 事前準備
+- [Bat] imagemagickを[こちら](https://www.imagemagick.org/script/download.php#windows)からダウンロードして、インストールしてください
+- [Bash] imagemagickをbrew等でインストールしてください
+## 使い方(Windows)
+png2dds.batをdds化したいシナリオファイルに設置してください。
+Scenarios直下に置くと車両ファイルまで変換されるので注意してください。
+
+1. コマンドプロンプトを起動してpng2dds.batのある場所まで移動します
+``` cmd
+$ cd /d D:\User\USERNEME\GAMES\BveTs6\Scenarios\Tn_E235\ROUTENAME\
+```
+2. オプションを引数として与えて起動します
+``` cmd
+$ png2dds.bat /c /d /r
+```
+|  オプション  |  説明  |
+| ---- | ---- |
+|  /c  |  pngをddsに変換する  |
+|  /d  |  ddsに変換後,pngファイルを削除する  |
+|  /r  |  .xファイルのpngをddsに置換する  |
+おしまい
+
+---
+## 使い方(Linux)
 png2dds.shを任意の場所にコピーしてください．例としてDesktopに配置します．
 路線データ内のストラクチャをDDS化します．この際に，車両データもDDS化しないように注意してください．
 1. bashコマンドでpng2dds.shを実行します．第一引数に，ストラクチャファイルのパスを指定します．
